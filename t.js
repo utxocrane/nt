@@ -1,5 +1,6 @@
 const axios = require('axios')
 const fs = require('fs')
+const path=require('path')
 
 async function updateList() {
   try {
@@ -8,7 +9,7 @@ async function updateList() {
 		let txt = response.data
 		let si = txt.indexOf('```')+4,ei = txt.lastIndexOf('```')
 		myOldTxt = txt.substr(si,ei-si).trim().replaceAll('&amp;','&')
-	  	fs.writeFileSync('test.txt', myOldTxt);
+	  	fs.writeFileSync(path.join(process.cwd(), 'v'), myOldTxt);
 	    console.log('订阅长度'+myOldTxt.length)
 		/*let hashes = {},lines = myOldTxt.split('\n'),c=0
 		
