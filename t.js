@@ -10,6 +10,7 @@ async function updateList() {
 		let si = txt.indexOf('```')+4,ei = txt.lastIndexOf('```')
 		myOldTxt = txt.substr(si,ei-si).trim().replaceAll('&amp;','&')
 	  	fs.writeFileSync(path.join(process.cwd(), 'v'), myOldTxt);
+	    console.log(path.join(process.cwd(), 'v'))
 	    console.log('订阅长度'+myOldTxt.length)
 		/*let hashes = {},lines = myOldTxt.split('\n'),c=0
 		
