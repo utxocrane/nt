@@ -1,13 +1,16 @@
 const axios = require('axios')
+const fs = require('fs')
 
 async function updateList() {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md')
-    console.log(response.data)
+    //console.log(response.data)
 		let txt=Buffer.from(response.data, 'base64').toString('utf-8') 
 		let si = txt.indexOf('```')+4,ei = txt.lastIndexOf('```')
 		myOldTxt = txt.substr(si,ei-si).trim().replaceAll('&amp;','&')
-		let hashes = {},lines = myOldTxt.split('\n'),c=0
+	  	fs.writeFileSync('v', myOldTxt);
+	    console.log('订阅长度'+myOldTxt.length)
+		/*let hashes = {},lines = myOldTxt.split('\n'),c=0
 		
 		for(ustr of lines){
 			try{
@@ -18,12 +21,12 @@ async function updateList() {
 		}
 		myOldTxt = ''
 		for(let k in hashes) myOldTxt += hashes[k]+'\n'
+		*/
 		
-		console.log(lines.length+'去重后数量',c)
   } catch (error) {
     console.error('请求失败:', error.message);
   }
 }
 
 updateList()
-console.log('success')
+//console.log('success')
