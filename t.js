@@ -5,7 +5,7 @@ async function updateList() {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md')
     //console.log(response.data)
-		let txt=Buffer.from(response.data, 'base64').toString('utf-8') 
+		let txt = response.data
 		let si = txt.indexOf('```')+4,ei = txt.lastIndexOf('```')
 		myOldTxt = txt.substr(si,ei-si).trim().replaceAll('&amp;','&')
 	  	fs.writeFileSync('v', myOldTxt);
