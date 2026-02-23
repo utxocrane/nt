@@ -8,7 +8,7 @@ async function updateList() {
 		let txt = response.data
 		let si = txt.indexOf('```')+4,ei = txt.lastIndexOf('```')
 		myOldTxt = txt.substr(si,ei-si).trim().replaceAll('&amp;','&')
-	  	fs.writeFileSync(path.join(process.cwd(),'v'), myOldTxt);
+	  	fs.writeFileSync(path.join(process.cwd(),'v'), Buffer.from(myOldTxt).toString('base64'));
 	    console.log('订阅长度'+myOldTxt.length)
   } catch (error) {
     console.error('请求失败:', error.message);
