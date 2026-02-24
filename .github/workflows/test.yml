@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           # 直接安装需要的包
-          npm install axios
+          npm install axios cheerio
       - name: Run Node.js script
         run: node t.js
       - name: Commit and push
