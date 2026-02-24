@@ -28,7 +28,10 @@ async function updateList() {
 	]
 	
 	for(const u of suburls){
-		try{allTxt += fromBase64((await axios.get(u)).data).trim()+'\n'}
+		try{
+			allTxt += fromBase64((await axios.get(u)).data).trim()+'\n'
+			console.log(u,'读取后', allTxt.length);
+		}
 		catch (error) {console.error('u读取失败:', error.message);}
 	}
 
