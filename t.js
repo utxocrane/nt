@@ -21,6 +21,17 @@ function extractUrlsSmart(html) {
   return urls;
 }
 
+//
+function nodefreeUrl() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+
+    return `https://node.nodefree.me/${year}/${month}/${year}${month}${day}.txt`
+}
+
 async function updateList() {
 	let allTxt = ''
 
@@ -40,7 +51,8 @@ async function updateList() {
 		'https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt',
 		'https://raw.githubusercontent.com/snakem982/proxypool/main/source/v2ray-2.txt',
 		'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt',
-		'https://www.xrayvip.com/free.txt'
+		'https://www.xrayvip.com/free.txt',
+		nodefreeUrl()
 		//https://raw.githubusercontent.com/adiwzx/freenode/main/adispeed.txt //这个自ID-10086/freenode导流的订阅已全部失效，后续再跟踪
 		//crossxx-labs/free-proxy是clash格式订阅，看看有无免费转换方案
 	]
