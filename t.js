@@ -39,7 +39,8 @@ async function updateList() {
 		'https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub',
 		'https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt',
 		'https://raw.githubusercontent.com/snakem982/proxypool/main/source/v2ray-2.txt',
-		'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt'
+		'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt',
+		'https://www.xrayvip.com/free.txt'
 		//https://raw.githubusercontent.com/adiwzx/freenode/main/adispeed.txt //这个自ID-10086/freenode导流的订阅已全部失效，后续再跟踪
 		//crossxx-labs/free-proxy是clash格式订阅，看看有无免费转换方案
 	]
