@@ -37,8 +37,8 @@ async function updateList() {
 		`https://node.nodefree.me/${yyyy}/${mm}/${yyyy}${mm}${dd}.txt`,
 		'https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7',
 		'https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md',
-		`https://node.hysteria2.org/uploads/${yyyy}/${mm}/0-${yyyymmdd}.txt`,
-		`https://node.hysteria2.org/uploads/${yyyy}/${mm}/1-${yyyymmdd}.txt`
+		`https://node.hysteria2.org/uploads/${yyyy}/${mm}/0-${yyyy}${mm}${dd}.txt`,
+		`https://node.hysteria2.org/uploads/${yyyy}/${mm}/1-${yyyy}${mm}${dd}.txt`
 		//https://raw.githubusercontent.com/adiwzx/freenode/main/adispeed.txt //这个自ID-10086/freenode导流的订阅已全部失效，后续再跟踪
 		//crossxx-labs/free-proxy是clash格式订阅，看看有无免费转换方案
 	]
