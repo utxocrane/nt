@@ -119,13 +119,19 @@ async function updateList() {
 	allTxt = allTxt.trim()
 	fs.writeFileSync('vsrc', Buffer.from(allTxt).toString('base64')) //完整列表
 
-	let uniList={}
-	for(let urlstr of allTxt.split('\n'))
+	let uniList={},allcnt=0
+	for(let urlstr of allTxt.split('\n')){
 		uniList[getUrlHash(urlstr)] = urlstr
+		++allcnt
+	}
 
-	allTxt = ''
-	for(let h in uniList) allTxt += uniList[h]+'\n'
+	allTxt = '',ucnt=0
+	for(let h in uniList){
+		allTxt += uniList[h]+'\n'
+		++ucnt
+	}
 
+	console.log('总数', allcnt,'去重后',ucnt)
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
 }
 
