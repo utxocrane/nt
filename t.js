@@ -4,7 +4,7 @@ const path=require('path')
 const cheerio = require('cheerio')
 
 let d = new Date()
-const yyyy=d.getFullYear(),mm = String(now.getMonth() + 1).padStart(2, '0'),dd= String(now.getDate()).padStart(2, '0');
+const yyyy=d.getFullYear(),mm = String(d.getMonth() + 1).padStart(2, '0'),dd= String(d.getDate()).padStart(2, '0');
 
 function fromBase64(bstr){return Buffer.from(bstr, 'base64').toString('utf-8')}
 
