@@ -132,6 +132,7 @@ async function updateList() {
 	}
 
 	console.log('总数', allcnt,'去重后',ucnt)
+	fs.writeFileSync('vt', allTxt) //明文
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
 }
 
