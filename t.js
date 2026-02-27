@@ -10,11 +10,11 @@ function fromBase64(bstr){return Buffer.from(bstr, 'base64').toString('utf-8')}
 function safeJson(s){return JSON.parse(s)}//暂代
 function fromBase64(bstr){return Buffer.from(bstr.trim(), 'base64').toString('utf-8')}
 function url2std(urlstr){//转为中间格式
-	let u = new URL(urlstr.replaceAll('&amp;','&'))
+	let u = new URL(urlstr.replaceAll('&amp;','&').trim())
 
 	let ob = {protocol:u.protocol.slice(0,-1)}
 	
-	//vmess是json的base64编码，特殊情况单独处理
+	//vmess是json的base64编码
 	if(ob.protocol == 'vmess'){
 		let vj = safeJson(atob(urlstr.slice(8)))
 		
@@ -29,7 +29,7 @@ function url2std(urlstr){//转为中间格式
 			path:vj.path,
 			host:vj.host
 		})
-	}else{//其他普通格式协议
+	}else{//普通格式协议
 		[ob.hostname,ob.port,ob.hash,ob.username] = [u.hostname,u.port,decodeURI(u.hash.slice(1)),u.username];
 		for (let [k, v] of u.searchParams)
 			if(v&&v.length>0) ob[k] = v
@@ -42,7 +42,6 @@ function url2std(urlstr){//转为中间格式
 	if(ob.protocol == 'ss'){
 		ob.protocol = 'shadowsocks';
 		[ob.method,ob.password] = fromBase64(u.username).split(':');
-		//if(ob.method == 'chacha20-poly1305') ob.method = "chacha20-ietf-poly1305" //不支持？
 	}
 
 	return ob
@@ -61,11 +60,14 @@ function djb2Hash(str) {
   return hash.toString(16).padStart(8, '0');
 }
 const hashBy = ['protocol','hostname','port','username','sni','flow','pbk','type','sid','path','host','fp','net','serviceName','security','alpn']
-function urlHash(ob){//URL指纹
+function getStdNodeHash(ob){//标准obj指纹
 	let str=""
 	for(p of hashBy) if(ob[p]) str+=JSON.stringify(ob[p])
-	
+
 	return djb2Hash(str)
+}
+function getUrlHash(urlstr){//URL指纹
+	return getStdNodeHash(url2std(urlstr))
 }
 
 
@@ -94,7 +96,6 @@ async function updateList() {
 		'https://raw.githubusercontent.com/snakem982/proxypool/main/source/v2ray-2.txt',
 		'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt',
 		'https://www.xrayvip.com/free.txt',
-		//nodefreeUrl()
 		`https://node.nodefree.me/${yyyy}/${mm}/${yyyy}${mm}${dd}.txt`,
 		'https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7',
 		'https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md',
@@ -115,28 +116,18 @@ async function updateList() {
 		catch (error) {console.error('u读取失败:', error.message);}
 	}
 
-	//////////////包含节点URL的普通html(如vless|trojan://....)
-	const htmlPages=[
-		'https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7',
-		'https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md'
-	]
-
-	/*for(const u of htmlPages){
-		try{
-			let allurls = 
-			for(const u1 of allurls)
-				if(!u1.startsWith('http'))
-					allTxt += u1.trim()+'\n'
-
-			console.log(u,'解析后', allTxt.length)
-		}
-		catch (error) {console.error(u,'html解析节点链接失败:', error.message);}
-	}
-	*/
-	
-	
+	allTxt = allTxt.trim(()
 	//fs.writeFileSync(path.join(process.cwd(),'v'), Buffer.from(allTxt.trim()).toString('base64'));
-	fs.writeFileSync('v', Buffer.from(allTxt.trim()).toString('base64'));
+	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //完整列表
+
+	let uniList={}
+	for(let urlstr of allTxt.split('\n'))
+		uniList[getUrlHash(urlstr)] = urlstr
+
+	allTxt = ''
+	for(let h in uniList) allTxt += uniList[h]+'\n'
+
+	fs.writeFileSync('vu', Buffer.from(allTxt).toString('base64')) //去重后
 }
 
 updateList()
