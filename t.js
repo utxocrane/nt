@@ -117,8 +117,7 @@ async function updateList() {
 	}
 
 	allTxt = allTxt.trim()
-	//fs.writeFileSync(path.join(process.cwd(),'v'), Buffer.from(allTxt.trim()).toString('base64'));
-	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //完整列表
+	fs.writeFileSync('vsrc', Buffer.from(allTxt).toString('base64')) //完整列表
 
 	let uniList={}
 	for(let urlstr of allTxt.split('\n'))
@@ -127,7 +126,7 @@ async function updateList() {
 	allTxt = ''
 	for(let h in uniList) allTxt += uniList[h]+'\n'
 
-	fs.writeFileSync('vu', Buffer.from(allTxt).toString('base64')) //去重后
+	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
 }
 
 updateList()
