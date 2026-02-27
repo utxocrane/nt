@@ -116,7 +116,7 @@ async function updateList() {
 		catch (error) {console.error('u读取失败:', error.message);}
 	}
 
-	allTxt = allTxt.trim(()
+	allTxt = allTxt.trim()
 	//fs.writeFileSync(path.join(process.cwd(),'v'), Buffer.from(allTxt.trim()).toString('base64'));
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //完整列表
 
