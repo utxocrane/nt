@@ -109,7 +109,7 @@ async function updateList() {
 		try{
 			let d = (await axios.get(u)).data
 			if(d.indexOf(':/')<0) allTxt += fromBase64(d).trim()+'\n' //直接解码
-			else for(const u1 of extractUrlsSmart(d)) if(!u1.startsWith('http://'))allTxt += u1.trim()+'\n' //解析所有URL
+			else for(const u1 of extractUrlsSmart(d)) if(!u1.startsWith('http'))allTxt += u1.trim()+'\n' //解析所有URL
 			
 			console.log(u,'读取后', allTxt.length);
 		}
