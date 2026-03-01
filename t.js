@@ -2,74 +2,13 @@ const axios = require('axios')
 const fs = require('fs')
 const path=require('path')
 const cheerio = require('cheerio')
+const v2uri = require('./lib/v2uri')
 
 let d = new Date()
 const yyyy=d.getFullYear(),mm = String(d.getMonth() + 1).padStart(2, '0'),dd= String(d.getDate()).padStart(2, '0');
 
-function fromBase64(bstr){return Buffer.from(bstr, 'base64').toString('utf-8')}
 function safeJson(s){return JSON.parse(s)}//暂代
 function fromBase64(bstr){return Buffer.from(bstr.trim(), 'base64').toString('utf-8')}
-function url2std(urlstr){//转为中间格式
-	let u = new URL(urlstr.replaceAll('&amp;','&').trim())
-
-	let ob = {protocol:u.protocol.slice(0,-1)}
-	
-	//vmess是json的base64编码
-	if(ob.protocol == 'vmess'){
-		let vj = safeJson(atob(urlstr.slice(8)))
-		
-		Object.assign(ob, {
-			hostname:vj.add,
-			port:vj.port,
-			username:vj.id,
-			scy:vj.scy||'auto',
-			aid:vj.aid ? parseInt(vj.aid):0,
-			hash:vj.ps,
-			net:vj.net,
-			path:vj.path,
-			host:vj.host
-		})
-	}else{//普通格式协议
-		[ob.hostname,ob.port,ob.hash,ob.username] = [u.hostname,u.port,decodeURI(u.hash.slice(1)),u.username];
-		for (let [k, v] of u.searchParams)
-			if(v&&v.length>0) ob[k] = v
-
-	}
-	
-	//修正数据格式、默认值等
-	ob.port = parseInt(ob.port)
-	try{ob.alpn = ob.alpn.split(',')}catch{}
-	if(ob.protocol == 'ss'){
-		ob.protocol = 'shadowsocks';
-		[ob.method,ob.password] = fromBase64(u.username).split(':');
-	}
-
-	return ob
-}
-
-function djb2Hash(str) {
-  let hash = 5381;
-  
-  for (let i = 0; i < str.length; i++) {
-    hash = ((hash << 5) + hash) + str.charCodeAt(i);
-  }
-  
-  hash = hash >>> 0; // 确保为正数
-  
-  // 转换为8位十六进制，不足补零
-  return hash.toString(16).padStart(8, '0');
-}
-const hashBy = ['protocol','hostname','port','username','sni','flow','pbk','type','sid','path','host','fp','net','serviceName','security','alpn']
-function getStdNodeHash(ob){//标准obj指纹
-	let str=""
-	for(p of hashBy) if(ob[p]) str+=JSON.stringify(ob[p])
-
-	return djb2Hash(str)
-}
-function getUrlHash(urlstr){//URL指纹
-	return getStdNodeHash(url2std(urlstr))
-}
-
 
 function extractUrlsSmart(html) {
   const $ = cheerio.load(html);
@@ -87,7 +26,7 @@ function extractUrlsSmart(html) {
   return urls;
 }
 
-async function updateList() {
+async function updateData() {
 	let allTxt = ''
 	/////////////////普通base64订阅链接或包含节点URL的纯文本，按是否包含:判断是否需要base64解码
 	const suburls=[
@@ -113,7 +52,7 @@ async function updateList() {
 			
 			console.log(u,'读取后', allTxt.length);
 		}
-		catch (error) {console.error('u读取失败:', error.message);}
+		catch (error) {console.error(u,'读取失败:', error.message);}
 	}
 
 	allTxt = allTxt.trim()
@@ -121,7 +60,7 @@ async function updateList() {
 
 	let uniList={},allcnt=0
 	for(let urlstr of allTxt.split('\n')){
-		uniList[getUrlHash(urlstr)] = urlstr
+		uniList[new v2uri(urlstr).FP] = urlstr
 		++allcnt
 	}
 
@@ -134,6 +73,10 @@ async function updateList() {
 	console.log('总数', allcnt,'去重后',ucnt)
 	fs.writeFileSync('vt', allTxt) //明文
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
+	
+	////////////////////////////////市场数据
+	let md = (await axios.get('https://www.okx.com/api/v5/market/exchange-rate')).data
+	console.log(md)
 }
 
-updateList()
+updateData()
