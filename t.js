@@ -73,10 +73,14 @@ async function updateData() {
 	console.log('总数', allcnt,'去重后',ucnt)
 	fs.writeFileSync('vt', allTxt) //明文
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
+
+	////////////////////////////////金融数据
+	let allTickers=[]
+	for(let tx of JSON.parse((await axios.get('https://www.okx.com/api/v5/market/exchange-rate')).data).data)
+		if(tx.instId.endsWith('USD')) allTickers.push(tx)
 	
-	////////////////////////////////市场数据
-	let md = (await axios.get('https://www.okx.com/api/v5/market/exchange-rate')).data
-	console.log(md)
+	fs.writeFileSync('market',JSON.stringify(allTickers))
+	console.log('OKX USD报价',allTickers.length)
 }
 
 updateData()
