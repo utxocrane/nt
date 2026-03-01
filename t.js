@@ -76,13 +76,14 @@ async function updateData() {
 
 	////////////////////////////////金融数据
 	let allTickers=[],j = (await axios.get('https://www.okx.com/api/v5/market/tickers?instType=SPOT')).data
-	console.log('',j)
+	//console.log('',j)
 	
-	console.log('',JSON.parse(j))
+	//console.log('',JSON.parse(j))
 	//for(let tx of JSON.parse(().data).data)
 	//	if(tx.instId.endsWith('USD')) allTickers.push(tx)
 	
 	//fs.writeFileSync('m',JSON.stringify(allTickers))
+	fs.writeFileSync('m',j)
 	console.log('OKX USD报价',allTickers.length)
 }
 
