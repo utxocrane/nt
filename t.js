@@ -77,15 +77,13 @@ async function updateData() {
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
 
 	////////////////////////////////金融数据
-	let allTickers=[],j = (await axios.get('https://www.okx.com/api/v5/market/tickers?instType=SPOT')).data
-	//console.log('',j)
+	let allTickers=[]
 	
-	//console.log('',JSON.parse(j))
-	//for(let tx of JSON.parse(().data).data)
-	//	if(tx.instId.endsWith('USD')) allTickers.push(tx)
+	for(let tx of (await axios.get('https://www.okx.com/api/v5/market/tickers?instType=SPOT')).data.data)
+		if(tx.instId.endsWith('USD')) allTickers.push(tx)
 	
-	//fs.writeFileSync('m',JSON.stringify(allTickers))
-	fs.writeFileSync('m',JSON.stringify(j))
+	fs.writeFileSync('m',JSON.stringify(allTickers))
+	//fs.writeFileSync('m',JSON.stringify(j))
 	console.log('OKX USD报价',allTickers.length)
 }
 
