@@ -3,6 +3,8 @@ const fs = require('fs')
 const path=require('path')
 const cheerio = require('cheerio')
 const v2uri = require('./lib/v2uri')
+//const {SocksProxyAgent} = require('socks-proxy-agent')
+//const socksAgent = new SocksProxyAgent('socks://127.0.0.1:10808') //走代理
 
 let d = new Date()
 const yyyy=d.getFullYear(),mm = String(d.getMonth() + 1).padStart(2, '0'),dd= String(d.getDate()).padStart(2, '0');
@@ -83,7 +85,7 @@ async function updateData() {
 	//	if(tx.instId.endsWith('USD')) allTickers.push(tx)
 	
 	//fs.writeFileSync('m',JSON.stringify(allTickers))
-	fs.writeFileSync('m',j)
+	fs.writeFileSync('m',JSON.stringify(j))
 	console.log('OKX USD报价',allTickers.length)
 }
 
