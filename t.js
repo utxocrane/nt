@@ -79,7 +79,7 @@ async function updateData() {
 	for(let tx of JSON.parse((await axios.get('https://www.okx.com/api/v5/market/exchange-rate')).data).data)
 		if(tx.instId.endsWith('USD')) allTickers.push(tx)
 	
-	fs.writeFileSync('market',JSON.stringify(allTickers))
+	fs.writeFileSync('m',JSON.stringify(allTickers))
 	console.log('OKX USD报价',allTickers.length)
 }
 
