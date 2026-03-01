@@ -76,7 +76,7 @@ async function updateData() {
 
 	////////////////////////////////金融数据
 	let allTickers=[]
-	for(let tx of JSON.parse((await axios.get('https://www.okx.com/api/v5/market/exchange-rate')).data).data)
+	for(let tx of JSON.parse((await axios.get('https://www.okx.com/api/v5/market/tickers?instType=SPOT')).data).data)
 		if(tx.instId.endsWith('USD')) allTickers.push(tx)
 	
 	fs.writeFileSync('m',JSON.stringify(allTickers))
