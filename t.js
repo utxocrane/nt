@@ -29,7 +29,7 @@ function extractUrlsSmart(html) {
 }
 
 async function updateData() {
-	let allTxt = ''
+	let allTxt = '',allLogs=''
 	/////////////////普通base64订阅链接或包含节点URL的纯文本，按是否包含:判断是否需要base64解码
 	const suburls=[
 		'https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub',
@@ -48,17 +48,24 @@ async function updateData() {
 	
 	for(const u of suburls){
 		try{
+			allLogs += '开始加载'+u+'\n'
 			let d = (await axios.get(u)).data
-			if(d.indexOf(':/')<0) allTxt += fromBase64(d).trim()+'\n' //直接解码
-			else for(const u1 of extractUrlsSmart(d)) if(!u1.startsWith('http'))allTxt += u1.trim()+'\n' //解析所有URL
 			
-			console.log(u,'读取后', allTxt.length);
+			let txt1 = ''
+			if(d.indexOf(':/')<0) txt1 = fromBase64(d) //base64订阅直接解码
+			else for(const u1 of extractUrlsSmart(d)) if(!u1.startsWith('http'))txt1 += u1.trim()+'\n' //解析所有URL
+			
+			txt1 = txt1.trim()
+			allLogs += txt1 + '\n'
+			allTxt += txt1 + '\n'
+
+			console.log(u,'读取后长度', allTxt.length);
 		}
 		catch (error) {console.error(u,'读取失败:', error.message);}
 	}
 
 	allTxt = allTxt.trim()
-	fs.writeFileSync('vsrc', Buffer.from(allTxt).toString('base64')) //完整列表
+	fs.writeFileSync('vsrc', Buffer.from(allTxt).toString('base64')) //原始完整列表
 
 	let uniList={},allcnt=0
 	for(let urlstr of allTxt.split('\n')){
@@ -73,17 +80,17 @@ async function updateData() {
 	}
 
 	console.log('总数', allcnt,'去重后',ucnt)
-	fs.writeFileSync('vt', allTxt) //明文
+	fs.writeFileSync('vt', allTxt) //订阅明文
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
+	fs.writeFileSync('l', Buffer.from(allLogs).toString('base64')) //入职
 
 	////////////////////////////////金融数据
 	let allTickers=[]
 	
 	for(let tx of (await axios.get('https://www.okx.com/api/v5/market/tickers?instType=SPOT')).data.data)
-		if(tx.instId.endsWith('USD')) allTickers.push(tx)
+		if(tx.instId.endsWith('USD') || tx.instId.endsWith('USDT')) allTickers.push(tx)
 	
 	fs.writeFileSync('m',JSON.stringify(allTickers))
-	//fs.writeFileSync('m',JSON.stringify(j))
 	console.log('OKX USD报价',allTickers.length)
 }
 
