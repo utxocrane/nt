@@ -82,7 +82,7 @@ async function updateData() {
 	console.log('总数', allcnt,'去重后',ucnt)
 	fs.writeFileSync('vt', allTxt) //订阅明文
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
-	fs.writeFileSync('l', Buffer.from(allLogs).toString('base64')) //入职
+	fs.writeFileSync('l', Buffer.from(allLogs))
 
 	////////////////////////////////金融数据
 	let allTickers=[]
