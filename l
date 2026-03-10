@@ -1,7 +1,10 @@
 开始加载https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub
-vmess://eyJ2IjogIjIiLCAicHMiOiAiXHU0ZTJkXHU1NmZkIFYyQ1JPU1MuQ09NIiwgImFkZCI6ICJ2MzAuaGRhY2QuY29tIiwgInBvcnQiOiAiMzA4MzAiLCAiYWlkIjogMCwgInNjeSI6ICJhdXRvIiwgIm5ldCI6ICJ0Y3AiLCAidHlwZSI6ICJub25lIiwgInRscyI6ICIiLCAiaWQiOiAiY2JiM2Y4NzctZDFmYi0zNDRjLTg3YTktZDE1M2JmZmQ1NDg0In0=
-vless://e4e7866d-920b-4a53-a8e2-6ae9b2a42fc2@47.91.94.112:10040?security=none&encryption=none&headerType=none&type=tcp#%E5%BE%B7%E5%9B%BD+%E9%98%BF%E9%87%8C%E4%BA%91
-trojan://wp9IsiY82uQhcmgNC1eoBM@80.173.231.254:12420?security=tls&sni=www.semanticstaplegun.click#%E8%A5%BF%E7%8F%AD%E7%89%99+V2CROSS.COM
+vmess://eyJ2IjogIjIiLCAicHMiOiAiXHU0ZTJkXHU1NmZkIFYyQ1JPU1MuQ09NIiwgImFkZCI6ICJ2MTIuaGRhY2QuY29tIiwgInBvcnQiOiAiMzA4MTIiLCAidHlwZSI6ICJub25lIiwgImlkIjogImNiYjNmODc3LWQxZmItMzQ0Yy04N2E5LWQxNTNiZmZkNTQ4NCIsICJhaWQiOiAiMCIsICJuZXQiOiAidGNwIiwgInBhdGgiOiAiLyIsICJob3N0IjogInYxMi5oZGFjZC5jb20iLCAidGxzIjogIiJ9
+vmess://eyJ2IjogIjIiLCAicHMiOiAiXHU0ZTlhXHU1OTJhXHU1NzMwXHU1MzNhIFYyQ1JPU1MuQ09NIiwgImFkZCI6ICIxMDMuMTgxLjE2NC4yMzciLCAicG9ydCI6ICIzNDExNCIsICJ0eXBlIjogImF1dG8iLCAiaWQiOiAiNDE4MDQ4YWYtYTI5My00Yjk5LTliMGMtOThjYTM1ODBkZDI0IiwgImFpZCI6ICI2NCIsICJuZXQiOiAidGNwIiwgInBhdGgiOiAiLyIsICJob3N0IjogIiIsICJ0bHMiOiAiIn0=
+trojan://cTv.9PDdCt-wybBrG1qlxI5UJuaEj@167.17.185.172:10889?security=tls&sni=web.max.ru#%E5%8A%A0%E6%8B%BF%E5%A4%A7+V2CROSS.COM
+ss://YWVzLTEyOC1nY206SlZyc0xMTjF0a044b1haTw==@chengbai02.ascwt179.com:13223#%E5%B9%BF%E4%B8%9C%E7%9C%81+%E7%94%B5%E4%BF%A1
+vmess://eyJhZGQiOiAiMTk4LjYyLjYyLjE5OSIsICJhaWQiOiAiMCIsICJhbHBuIjogIiIsICJmcCI6ICIiLCAiaG9zdCI6ICJvdXMzLmRlYW41Mi50b3AiLCAiaWQiOiAiZjA4MzY5ZDEtNWVlNy00YjE2LWQ3ODYtMzBiY2UxMmZjMzNjIiwgImluc2VjdXJlIjogIjAiLCAibmV0IjogIndzIiwgInBhdGgiOiAiL2YwODM2OWQxLTVlZTctNGIxNi1kNzg2LTMwYmNlMTJmYzMzYyIsICJwb3J0IjogNDQzLCAicHMiOiAiXHU1MzE3XHU3ZjhlXHU1NzMwXHU1MzNhIFYyQ1JPU1MuQ09NIiwgInNjeSI6ICJhdXRvIiwgInNuaSI6ICJvdXMzLmRlYW41Mi50b3AiLCAidGxzIjogInRscyIsICJ0eXBlIjogIi0tLSIsICJ2IjogIjIiLCAibmFtZSI6ICJcdWQ4M2NcdWRkZmFcdWQ4M2NcdWRkZjggV1MtVExTIHwgQEV4cHJlc3NfYWxha2kgfCBzcmMgQEZyZWFrQ29uZmlnIn0=
+ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.99:8080#%E8%8B%B1%E5%9B%BD+V2CROSS.COM
 trojan://cTv.9PDdCt-wybBrG1qlxI5UJuaEj@167.17.185.228:10889?security=tls&sni=web.max#%E5%8A%A0%E6%8B%BF%E5%A4%A7+V2CROSS.COM
 开始加载https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt
 hysteria2://0b8a288c@107.174.181.241:65160?insecure=1&sni=en.snu.ac.kr#9%7C%40Trick_mobil
@@ -457,7 +460,7 @@ vless://a16bd0e2-ff2e-4e4c-a955-0c684255a065@45.144.51.136:443?flow=xtls-rprx-vi
 开始加载https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7
 vless://bcb13ecb-4f63-4257-ae01-ec5aeaa613a5@157.254.223.64:23000?encryption=none&security=reality&sni=mxj.myanimelist.net&fp=chrome&pbk=dJFLqPCinyadJxJk7zA_DwBOEAvexvm7AZT2Pw84_EY&sid=955275866feece09&spx=%2F&type=xhttp&path=%2Falvin9999.com#VLESS%E8%8A%82%E7%82%B91-xhttp-reality
 vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogIlZNRVNT6IqC54K5Mi1pcHY2IiwNCiAgImFkZCI6ICIyYTE0Ojc1ODQ6ZDBhMjo6YSIsDQogICJwb3J0IjogIjIzNDU2IiwNCiAgImlkIjogImJkNDhlMGFjLWU5MGUtNDQ1MS1hNGYyLWFiZjA2MWNmYjg5MCIsDQogICJhaWQiOiAiMCIsDQogICJzY3kiOiAiYXV0byIsDQogICJuZXQiOiAid3MiLA0KICAidHlwZSI6ICJub25lIiwNCiAgImhvc3QiOiAid3d3LmJpbmcuY29tIiwNCiAgInBhdGgiOiAiL2FsdmluOTk5OS5jb20iLA0KICAidGxzIjogIiIsDQogICJzbmkiOiAiIiwNCiAgImFscG4iOiAiIiwNCiAgImZwIjogIiINCn0=
-hysteria2://dongtaiwang.com@[2a14:7584:d04a::a]:50022?sni=apple.com&alpn=h3&insecure=1#Hysteria2%E8%8A%82%E7%82%B93-ipv6
+hysteria2://dongtaiwang.com@[2a14:7583:295c::a]:11130?sni=www.microsoft.com&insecure=1#Hysteria2%E8%8A%82%E7%82%B93-ipv6
 开始加载https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md
 ss://MjAyMi1ibGFrZTMtYWVzLTI1Ni1nY206c2xHKzBUVGgzb29SODlFR0NlYTkxQ3VBbVBLNFJWVWRjN2FoOUVOTjNqWT0@43.128.111.119:38012#SG%20SS-01%20%7C%20free-nodes
 ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTowYmM4MDFhN2NhYzVmMTM0@93.174.164.89:11201#%E6%9C%AA%E7%9F%A5%20SS-02%20%7C%20free-nodes
