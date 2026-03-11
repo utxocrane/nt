@@ -46,7 +46,7 @@ async function updateData() {
 		//crossxx-labs/free-proxy是clash格式订阅，看看有无免费转换方案
 	]
 
-	suburls.push(...loadYudou()) //玉豆
+	suburls.push(...(await loadYudou())) //玉豆
 	
 	for(const u of suburls){
 		try{
