@@ -45,6 +45,8 @@ async function updateData() {
 		//https://raw.githubusercontent.com/adiwzx/freenode/main/adispeed.txt //这个自ID-10086/freenode导流的订阅已全部失效，后续再跟踪
 		//crossxx-labs/free-proxy是clash格式订阅，看看有无免费转换方案
 	]
+
+	suburls.push(...loadYudou()) //玉豆
 	
 	for(const u of suburls){
 		try{
@@ -95,3 +97,18 @@ async function updateData() {
 }
 
 updateData()
+
+async function loadYudou(){
+	let returls=[]
+	try{
+		let $=cheerio.load((await axios.get('https://www.yudou789.top/category/jiedian')).data)
+		for(let p of $('posts')){
+			let $2 = cheerio.load((await axios.get(p.children[1].children[0].children[0].attribs.href)).data)
+			
+			const matches = ($2('body').text().match(/https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g)) || [];
+			for(let u of matches) returls.push(u)
+		}
+
+		return returls
+	}catch(e){console.error(u,'玉豆加载失败:', e.message);return []}
+}
