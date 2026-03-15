@@ -32,10 +32,10 @@ async function updateData() {
 	let allTxt = '',allLogs=''
 	/////////////////普通base64订阅链接或包含节点URL的纯文本，按是否包含:判断是否需要base64解码
 	const suburls=[
-		'https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub', // 1/7 @3.14
-		'https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt', // 1/56 @3.14
-		'https://raw.githubusercontent.com/snakem982/proxypool/main/source/v2ray-2.txt', // 6/45 @3.14
-		'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt', // 
+		//'https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub', // 1/7 @3.14
+		//'https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt', // 1/56 @3.14
+		//'https://raw.githubusercontent.com/snakem982/proxypool/main/source/v2ray-2.txt', // 6/45 @3.14
+		//'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt', // 需要提取
 		'https://www.xrayvip.com/free.txt',
 		`https://node.nodefree.me/${yyyy}/${mm}/${yyyy}${mm}${dd}.txt`,
 		'https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7',
@@ -49,7 +49,7 @@ async function updateData() {
 		//crossxx-labs/free-proxy是clash格式订阅，看看有无免费转换方案
 	]
 
-	suburls.push(...(await loadShareSite())) //玉豆
+	suburls.unshift(...(await loadShareSite())) //分享站点
 	
 	for(const u of suburls){
 		try{
@@ -126,6 +126,7 @@ function getValueByPath(obj, pathArray) {
   }, obj);
 }
 
+//分享站点抓取
 async function loadShareSite(){
 	let returls=[]
 	const siteMaps=[//各分享站点地图，框架是一样的
@@ -134,11 +135,17 @@ async function loadShareSite(){
 		 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
 		 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
 		],
-		['https://www.mibei77.com/', //导航url
+		['https://www.mibei77.com', //导航url
 		 'article',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 1, "children", 0, "attribs", "href"], //子页面href相对路径
 		 /https:\/\/mm\.mibei77\.com\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
+		],
+		['https://www.freeclashnode.com', //主导航
+		 'a[href*="free-node-subscribe.htm"]',0,1,
+		 ["attribs", "href"], //子页面href相对路径
+		 /https:\/\/node\.freeclashnode\.com\/[^/\s]+\.txt/g	//订阅链接匹配正则
 		]
+		
 	];
 	
 	for(let s of siteMaps){
@@ -146,8 +153,11 @@ async function loadShareSite(){
 		let $=cheerio.load((await axios.get(s[0])).data)(s[1])
 		for(let li=s[2];li<s[3]&&li<$.length;++li){
 			const p = $[li]
-			let $2 = cheerio.load((await axios.get(getValueByPath(p,s[4]))).data)
-			console.log(getValueByPath(p,s[4]))
+			const shref = getValueByPath(p,s[4]).trim()
+			if(!shref.startsWith('http')) shref = s[0] + shref //相对路径
+			
+			let $2 = cheerio.load((await axios.get(shref)).data)
+			//console.log(getValueByPath(p,s[4]))
 			const matches = ($2('body').text().match(s[5])) || [];
 			for(let u of matches) returls.push(u)
 		}
