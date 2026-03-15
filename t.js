@@ -128,11 +128,16 @@ function getValueByPath(obj, pathArray) {
 
 async function loadShareSite(){
 	let returls=[]
-	const siteMaps=[
+	const siteMaps=[//各分享站点地图，框架是一样的
 		['https://www.yudou789.top/category/jiedian', //导航url
 		 'posts',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
 		 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
+		],
+		['https://www.mibei77.com/', //导航url
+		 'article',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
+		 ["children", 0, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
+		 /https:\/\/mm\.mibei77\..com\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
 		]
 	]
 	for(let s of siteMaps){
@@ -152,17 +157,3 @@ async function loadShareSite(){
 	return returls
 }
 
-async function loadYudou(){
-	let returls=[]
-	try{
-		let $=cheerio.load((await axios.get('https://www.yudou789.top/category/jiedian')).data)
-		for(let p of $('posts')){
-			let $2 = cheerio.load((await axios.get(p.children[1].children[0].children[0].attribs.href)).data)
-			
-			const matches = ($2('body').text().match(/https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g)) || [];
-			for(let u of matches) returls.push(u)
-		}
-
-		return returls
-	}catch(e){console.error(u,'玉豆加载失败:', e.message);return []}
-}
