@@ -32,21 +32,24 @@ async function updateData() {
 	let allTxt = '',allLogs=''
 	/////////////////普通base64订阅链接或包含节点URL的纯文本，按是否包含:判断是否需要base64解码
 	const suburls=[
-		'https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub',
-		'https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt',
-		'https://raw.githubusercontent.com/snakem982/proxypool/main/source/v2ray-2.txt',
-		'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt',
+		'https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub', // 1/7 @3.14
+		'https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.txt', // 1/56 @3.14
+		'https://raw.githubusercontent.com/snakem982/proxypool/main/source/v2ray-2.txt', // 6/45 @3.14
+		'https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/yudou66.txt', // 
 		'https://www.xrayvip.com/free.txt',
 		`https://node.nodefree.me/${yyyy}/${mm}/${yyyy}${mm}${dd}.txt`,
 		'https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7',
-		'https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md',
-		`https://node.hysteria2.org/uploads/${yyyy}/${mm}/0-${yyyy}${mm}${dd}.txt`,`https://node.hysteria2.org/uploads/${yyyy}/${mm}/1-${yyyy}${mm}${dd}.txt`//https://hysteria2.org/free-node/2026-2-27-free-clash-subscribe.htm
+		'https://raw.githubusercontent.com/free-nodes/v2rayfree/main/README.md', // 可用性4/164
+		`https://node.hysteria2.org/uploads/${yyyy}/${mm}/0-${yyyy}${mm}${dd}.txt`,`https://node.hysteria2.org/uploads/${yyyy}/${mm}/1-${yyyy}${mm}${dd}.txt`,//https://hysteria2.org/free-node/2026-2-27-free-clash-subscribe.htm
+		
+		//freeclashnode.com
+		`https://node.freeclashnode.com/uploads/${yyyy}/${mm}/0-${yyyy}${mm}${dd}.txt`,
 		
 		//https://raw.githubusercontent.com/adiwzx/freenode/main/adispeed.txt //这个自ID-10086/freenode导流的订阅已全部失效，后续再跟踪
 		//crossxx-labs/free-proxy是clash格式订阅，看看有无免费转换方案
 	]
 
-	suburls.push(...(await loadYudou())) //玉豆
+	suburls.push(...(await loadShareSite())) //玉豆
 	
 	for(const u of suburls){
 		try{
@@ -97,6 +100,54 @@ async function updateData() {
 }
 
 updateData()
+
+
+
+async function loadYudou(){
+	let returls=[]
+	try{
+		let $=cheerio.load((await axios.get('https://www.yudou789.top/category/jiedian')).data)
+		for(let p of $('posts')){
+			let $2 = cheerio.load((await axios.get(p.children[1].children[0].children[0].attribs.href)).data)
+			
+			const matches = ($2('body').text().match(/https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g)) || [];
+			for(let u of matches) returls.push(u)
+		}
+
+		return returls
+	}catch(e){console.error(u,'玉豆加载失败:', e.message);return []}
+}
+
+const siteMaps=[
+	['https://www.yudou789.top/category/jiedian', //导航url
+	 'posts', //元素选择器,用于遍历,一般可取首个（最新）
+	 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
+	 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
+	]
+]
+function getValueByPath(obj, pathArray) {
+  return pathArray.reduce((current, key) => {
+    return current?.[key];
+  }, obj);
+}
+
+async function loadShareSite(){
+	let returls=[]
+	for(let s of siteMaps){
+		try{
+		let $=cheerio.load((await axios.get(s[0])).data)
+		for(let p of $(s[1])){
+			let $2 = cheerio.load((await axios.get(getValueByPath(p,s[2])).data)
+			
+			const matches = ($2('body').text().match(s[3])) || [];
+			for(let u of matches) returls.push(u)
+		}
+
+		return returls
+		}catch(e){console.error(u,'玉豆加载失败:', e.message)}
+	}
+	return returls
+}
 
 async function loadYudou(){
 	let returls=[]
