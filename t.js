@@ -137,7 +137,7 @@ async function loadShareSite(){
 		['https://www.mibei77.com/', //导航url
 		 'article',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 1, "children", 0, "attribs", "href"], //子页面href相对路径
-		 /https:\/\/mm\.mibei77\..com\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
+		 /https:\/\/mm\.mibei77\.com\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
 		]
 	];
 	
