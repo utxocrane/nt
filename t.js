@@ -152,7 +152,6 @@ async function loadShareSite(){
 			for(let u of matches) returls.push(u)
 		}
 
-		return returls
 		}catch(e){console.error(s[0],'分享网站加载失败:', e.message)}
 	}
 	return returls
