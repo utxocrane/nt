@@ -147,7 +147,7 @@ async function loadShareSite(){
 		for(let li=s[2];li<s[3]&&li<$.length;++li){
 			const p = $[li]
 			let $2 = cheerio.load((await axios.get(getValueByPath(p,s[4]))).data)
-			
+			console.log(getValueByPath(p,s[4]))
 			const matches = ($2('body').text().match(s[5])) || [];
 			for(let u of matches) returls.push(u)
 		}
