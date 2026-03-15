@@ -130,18 +130,19 @@ async function loadShareSite(){
 	let returls=[]
 	const siteMaps=[
 		['https://www.yudou789.top/category/jiedian', //导航url
-		 'posts', //元素选择器,用于遍历,一般可取首个（最新）
+		 'posts',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
 		 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
 		]
 	]
 	for(let s of siteMaps){
 		try{
-		let $=cheerio.load((await axios.get(s[0])).data)
-		for(let p of $(s[1])){
-			let $2 = cheerio.load((await axios.get(getValueByPath(p,s[2]))).data)
+		let $=cheerio.load((await axios.get(s[0])).data)(s[1])
+		for(let li=s[2];li<s[3]&&li<$.length;++li){
+			const p = $[li]
+			let $2 = cheerio.load((await axios.get(getValueByPath(p,s[4]))).data)
 			
-			const matches = ($2('body').text().match(s[3])) || [];
+			const matches = ($2('body').text().match(s[5])) || [];
 			for(let u of matches) returls.push(u)
 		}
 
