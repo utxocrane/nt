@@ -124,7 +124,7 @@ const siteMaps=[
 	 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
 	 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
 	]
-]
+];
 function getValueByPath(obj, pathArray) {
   return pathArray.reduce((current, key) => {
     return current?.[key];
