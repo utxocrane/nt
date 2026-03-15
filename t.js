@@ -136,10 +136,11 @@ async function loadShareSite(){
 		],
 		['https://www.mibei77.com/', //导航url
 		 'article',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
-		 ["children", 0, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
+		 ["children", 1, "children", 1, "children", 0, "attribs", "href"], //子页面href相对路径
 		 /https:\/\/mm\.mibei77\..com\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
 		]
-	]
+	];
+	
 	for(let s of siteMaps){
 		try{
 		let $=cheerio.load((await axios.get(s[0])).data)(s[1])
@@ -152,7 +153,7 @@ async function loadShareSite(){
 		}
 
 		return returls
-		}catch(e){console.error(u,'分享网站加载失败:', e.message)}
+		}catch(e){console.error(s[0],'分享网站加载失败:', e.message)}
 	}
 	return returls
 }
