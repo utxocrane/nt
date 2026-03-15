@@ -118,13 +118,8 @@ async function loadYudou(){
 	}catch(e){console.error(u,'玉豆加载失败:', e.message);return []}
 }
 
-const siteMaps=[
-	['https://www.yudou789.top/category/jiedian', //导航url
-	 'posts', //元素选择器,用于遍历,一般可取首个（最新）
-	 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
-	 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
-	]
-];
+
+
 function getValueByPath(obj, pathArray) {
   return pathArray.reduce((current, key) => {
     return current?.[key];
@@ -133,6 +128,13 @@ function getValueByPath(obj, pathArray) {
 
 async function loadShareSite(){
 	let returls=[]
+	const siteMaps=[
+		['https://www.yudou789.top/category/jiedian', //导航url
+		 'posts', //元素选择器,用于遍历,一般可取首个（最新）
+		 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
+		 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
+		]
+	]
 	for(let s of siteMaps){
 		try{
 		let $=cheerio.load((await axios.get(s[0])).data)
@@ -144,7 +146,7 @@ async function loadShareSite(){
 		}
 
 		return returls
-		}catch(e){console.error(u,'玉豆加载失败:', e.message)}
+		}catch(e){console.error(u,'分享网站加载失败:', e.message)}
 	}
 	return returls
 }
