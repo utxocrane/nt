@@ -153,7 +153,7 @@ async function loadShareSite(){
 		let $=cheerio.load((await axios.get(s[0])).data)(s[1])
 		for(let li=s[2];li<s[3]&&li<$.length;++li){
 			const p = $[li]
-			const shref = getValueByPath(p,s[4]).trim()
+			let shref = getValueByPath(p,s[4]).trim()
 			if(!shref.startsWith('http')) shref = s[0] + shref //相对路径
 			
 			let $2 = cheerio.load((await axios.get(shref)).data)
