@@ -38,6 +38,8 @@ jobs:
           # 直接安装需要的包
           npm install axios cheerio
       - name: Run Node.js script
+        env:
+          YTKEY: ${{ secrets.YTKEY}}
         run: node t.js
       - name: Commit and push
         run: |
