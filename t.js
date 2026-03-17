@@ -33,7 +33,7 @@ async function updateData() {
 		'https://www.xrayvip.com/free.txt',
 		`https://node.nodefree.me/${yyyy}/${mm}/${yyyy}${mm}${dd}.txt`,
 		'https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7',
-
+		'https://raw.githubusercontent.com/shaoyouvip/free/refs/heads/main/base64.txt',
 		`https://node.hysteria2.org/uploads/${yyyy}/${mm}/0-${yyyy}${mm}${dd}.txt`,`https://node.hysteria2.org/uploads/${yyyy}/${mm}/1-${yyyy}${mm}${dd}.txt`,//https://hysteria2.org/free-node/2026-2-27-free-clash-subscribe.htm
 		
 		`https://node.freeclashnode.com/uploads/${yyyy}/${mm}/0-${yyyy}${mm}${dd}.txt`,//freeclashnode.com
@@ -41,6 +41,9 @@ async function updateData() {
 
 	suburls.unshift(...(await loadShareSite())) //分享站点
 	suburls.unshift(...(await loadYoutubeSbj('UUtzk4Wh7dwJLDKXbq4w4PRQ',/https:\/\/us1\.zhuk\.dpdns\.org\/[^/\s]+\outube.html/g , /https:\/\/vess\.zhuk\.dpdns\.org\/\S+?\.txt/g)))
+
+	console.log('开始处理zzzhhh1项目7z')
+	allTxt += await loadGitCustom() + '\n' //7z打包的
 	
 	for(const u of suburls){
 		try{
@@ -64,8 +67,10 @@ async function updateData() {
 	fs.writeFileSync('vsrc', Buffer.from(allTxt).toString('base64')) //原始完整列表
 
 	let uniList={},allcnt=0
-	for(let urlstr of allTxt.split('\n')){
-		uniList[new v2uri(urlstr).FP] = urlstr
+	for(let urlstr of allTxt.trim().split('\n'))if(urlstr.length>9){
+		let v = new v2uri(urlstr)
+		if(!v) continue
+		uniList[v.FP] = urlstr
 		++allcnt
 	}
 
@@ -75,7 +80,7 @@ async function updateData() {
 		++ucnt
 	}
 
-	console.log('总数', allcnt,'去重后',ucnt)
+	console.log('总长度',allTxt.length,'总数', allcnt,'去重后',ucnt)
 	fs.writeFileSync('vt', allTxt) //订阅明文
 	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
 	fs.writeFileSync('l', allLogs) //日志
@@ -89,9 +94,6 @@ async function updateData() {
 	fs.writeFileSync('m',JSON.stringify(allTickers))
 	console.log('OKX USD报价',allTickers.length)
 }
-
-
-
 
 function getValueByPath(obj, pathArray) {
   return pathArray.reduce((current, key) => {
@@ -132,6 +134,7 @@ async function loadShareSite(){
 	let returls=[]
 	for(let s of siteMaps){
 		try{
+		console.log('加载...',s[0])
 		let $=cheerio.load((await axios.get(s[0],{httpsAgent:socksAgent})).data)(s[1])
 		for(let li=s[2];li<s[3]&&li<$.length;++li){
 			const p = $[li]
@@ -169,8 +172,37 @@ async function loadYoutubeSbj(playlistid,rgx,rgx2){
 	return []
 }
 
+const { execSync } = require('child_process');
+
+async function loadGitCustom(){
+	//骚包分享者把资源打包了
+	
+	for(let c of (await axios.get('https://api.github.com/repos/zzzhhh1/2024-/commits')).data){
+		const f = (await axios.get(c.url)).data.files[0]
+		if(!f.filename.endsWith('.7z')) continue
+
+		fs.writeFileSync('temp/t.7z',(await axios.get(f.raw_url, {httpsAgent:socksAgent,responseType: 'arraybuffer' })).data)
+		execSync('7z x temp/t.7z -otemp/out -y', { stdio: 'inherit' });
+		fs.readdirSync('temp/out').forEach(file => {
+		  const filePath = path.join('temp/out', file);
+		  const stat = fs.statSync(filePath);
+
+		  if (stat.isFile() && path.extname(file) === '.txt') {
+			const content = fs.readFileSync(filePath, 'utf-8'); // 读取文本内容
+			if(content.indexOf('ss://')>=0)
+				return content.trim()
+		  }
+		});
+		break;
+	}
+	
+	return ""
+}
+//loadGitCustom()
 updateData()
 
+// 接下来嫖https://github.com/zzzhhh1/2024-
+// https://free.xiaoqikeji.com/
 		//v2rayshare.net基本全炸
 		//oneclash.cc基本全炸
 		//'https://raw.githubusercontent.com/Pawdroid/Free-servers/main/sub', // 1/7 @3.14
