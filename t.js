@@ -121,7 +121,7 @@ async function loadShareSite(){
 		 /https:\/\/node\.freeclashnode\.com\/\S+?\.txt/g
 		],
 		['https://nodev2ray.com',
-		 'a[href*="-free-high-speed-nodes.htm"]',0,1,
+		 'a:contains("每天更新免费梯子")',0,1,
 		 ["attribs", "href"], //子页面href相对路径
 		 /https:\/\/node\.nodev2ray\.com\/^\S+?\.txt/g
 		]
@@ -134,7 +134,7 @@ async function loadShareSite(){
 	let returls=[]
 	for(let s of siteMaps){
 		try{
-		console.log('解析分享主页导航...',s[0])
+		console.log('解析分享主页导航========================',s[0])
 		let $=cheerio.load((await axios.get(s[0],{httpsAgent:socksAgent})).data)(s[1])
 		for(let li=s[2];li<s[3]&&li<$.length;++li){
 			const p = $[li]
@@ -143,12 +143,9 @@ async function loadShareSite(){
 			
 			console.log('解析子页导航...',shref)
 			let $2 = cheerio.load((await axios.get(shref,{httpsAgent:socksAgent})).data)
-			//console.log(getValueByPath(p,s[4]))
 			const matches = ($2('body').text().match(s[5])) || [];
-			for(let u of matches){
-				returls.push(u)
-				console.log('提出分享链接...',u)
-			}
+			console.log('提出订阅链接:',matches)
+			for(let u of matches) returls.push(u)
 		}
 
 		}catch(e){console.error(s[0],'分享网站加载失败:', e.message)}
