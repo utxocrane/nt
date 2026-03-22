@@ -123,7 +123,7 @@ async function loadShareSite(){
 		['https://nodev2ray.com',
 		 'a:contains("每天更新免费梯子")',0,1,
 		 ["attribs", "href"], //子页面href相对路径
-		 /https:\/\/node\.nodev2ray\.com\/^\S+?\.txt/g
+		 /https:\/\/node\.nodev2ray\.com\/.*?\.txt/g
 		]
 		/*['https://www.naidounode.com', //节点全炸
 		 'a.text-reset',0,2,
