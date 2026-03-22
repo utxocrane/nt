@@ -42,7 +42,7 @@ async function updateData() {
 	suburls.unshift(...(await loadShareSite())) //分享站点
 	suburls.unshift(...(await loadYoutubeSbj('UUtzk4Wh7dwJLDKXbq4w4PRQ',/https:\/\/us1\.zhuk\.dpdns\.org\/[^/\s]+\outube.html/g , /https:\/\/vess\.zhuk\.dpdns\.org\/\S+?\.txt/g)))
 
-	console.log('开始处理zzzhhh1项目7z')
+	console.log('处理zzzhhh1项目7z')
 	allTxt += await loadGitCustom() + '\n' //7z打包的
 	
 	for(const u of suburls){
@@ -113,17 +113,17 @@ async function loadShareSite(){
 		['https://www.mibei77.com', //导航url
 		 'article',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 1, "children", 0, "attribs", "href"], //子页面href相对路径
-		 /https:\/\/mm\.mibei77\.com\/[^\/]+\/[^\/]+\.txt/g
+		 /https:\/\/mm\.mibei77\.com\/[^\s]+\.txt/g
 		],
 		['https://www.freeclashnode.com', //clash-meta.github.io所嫖地址
 		 'a[href*="free-node-subscribe.htm"]',0,1,
 		 ["attribs", "href"], //子页面href相对路径
-		 /https:\/\/node\.freeclashnode\.com\/[^/\s]+\.txt/g
+		 /https:\/\/node\.freeclashnode\.com\/[^\s]+\.txt/g
 		],
 		['https://nodev2ray.com',
 		 'a[href*="-free-high-speed-nodes.htm"]',0,1,
 		 ["attribs", "href"], //子页面href相对路径
-		 /https:\/\/node\.nodev2ray\.com\/[^/\s]+\.txt/g
+		 /https:\/\/node\.nodev2ray\.com\/[^\s]+\.txt/g
 		]
 		/*['https://www.naidounode.com', //节点全炸
 		 'a.text-reset',0,2,
@@ -134,17 +134,21 @@ async function loadShareSite(){
 	let returls=[]
 	for(let s of siteMaps){
 		try{
-		console.log('加载...',s[0])
+		console.log('解析分享主页导航...',s[0])
 		let $=cheerio.load((await axios.get(s[0],{httpsAgent:socksAgent})).data)(s[1])
 		for(let li=s[2];li<s[3]&&li<$.length;++li){
 			const p = $[li]
 			let shref = getValueByPath(p,s[4]).trim()
 			if(!shref.startsWith('http')) shref = s[0] + shref //相对路径
 			
+			console.log('解析子页导航...',shref)
 			let $2 = cheerio.load((await axios.get(shref,{httpsAgent:socksAgent})).data)
 			//console.log(getValueByPath(p,s[4]))
 			const matches = ($2('body').text().match(s[5])) || [];
-			for(let u of matches) returls.push(u)
+			for(let u of matches){
+				returls.push(u)
+				console.log('提出分享链接...',u)
+			}
 		}
 
 		}catch(e){console.error(s[0],'分享网站加载失败:', e.message)}
@@ -154,18 +158,16 @@ async function loadShareSite(){
 
 //
 async function loadYoutubeSbj(playlistid,rgx,rgx2){
-	//let returls=[] 
+	console.log('解析YT主播最新视频简介...')
 	try{
 	let ydtxt = (await axios.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId='+playlistid+'&maxResults=99&key='+process.env.YTKEY,{httpsAgent:socksAgent})).data.items[0].snippet.description
 	const matches = (ydtxt.match(rgx)) || [];
 	if(matches[0]){
 		let $2 = cheerio.load((await axios.get(matches[0],{httpsAgent:socksAgent})).data)
-		//console.log($2('body').text())
 		
-		//console.log(rgx2)
-		return ($2('body').text().match(rgx2)) || [];
-		
-		//returls.push(...matches2)
+		let matches=($2('body').text().match(rgx2)) || [];
+		console.log('提出订阅链接:',matches[0])
+		return matches
 	}
 	
 	}catch(e){console.error('油管API加载失败',e)}
@@ -176,7 +178,6 @@ const { execSync } = require('child_process');
 
 async function loadGitCustom(){
 	//骚包分享者把资源打包了
-	
 	for(let c of (await axios.get('https://api.github.com/repos/zzzhhh1/2024-/commits')).data){
 		const f = (await axios.get(c.url)).data.files[0]
 		if(!f.filename.endsWith('.7z')) continue
@@ -198,7 +199,6 @@ async function loadGitCustom(){
 	
 	return ""
 }
-//loadGitCustom()
 updateData()
 
 // 接下来嫖https://github.com/zzzhhh1/2024-
