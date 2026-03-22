@@ -116,14 +116,14 @@ async function loadShareSite(){
 		 /https:\/\/mm\.mibei77\.com\/[^\s]+\.txt/g
 		],
 		['https://www.freeclashnode.com', //clash-meta.github.io所嫖地址
-		 'a[href*="free-node-subscribe.htm"]',0,1,
+		 'a[href*="-free-subscribe-node.htm"]',0,1,
 		 ["attribs", "href"], //子页面href相对路径
-		 /https:\/\/node\.freeclashnode\.com\/[^\s]+\.txt/g
+		 /https:\/\/node\.freeclashnode\.com\/\S+?\.txt/g
 		],
 		['https://nodev2ray.com',
 		 'a[href*="-free-high-speed-nodes.htm"]',0,1,
 		 ["attribs", "href"], //子页面href相对路径
-		 /https:\/\/node\.nodev2ray\.com\/[^\s]+\.txt/g
+		 /https:\/\/node\.nodev2ray\.com\/^\S+?\.txt/g
 		]
 		/*['https://www.naidounode.com', //节点全炸
 		 'a.text-reset',0,2,
@@ -165,8 +165,8 @@ async function loadYoutubeSbj(playlistid,rgx,rgx2){
 	if(matches[0]){
 		let $2 = cheerio.load((await axios.get(matches[0],{httpsAgent:socksAgent})).data)
 		
-		let matches=($2('body').text().match(rgx2)) || [];
-		console.log('提出订阅链接:',matches[0])
+		let matches2=($2('body').text().match(rgx2)) || [];
+		console.log('提出订阅链接:',matches2)
 		return matches
 	}
 	
