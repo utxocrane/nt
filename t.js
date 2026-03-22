@@ -167,7 +167,7 @@ async function loadYoutubeSbj(playlistid,rgx,rgx2){
 		
 		let matches2=($2('body').text().match(rgx2)) || [];
 		console.log('提出订阅链接:',matches2)
-		return matches
+		return matches2
 	}
 	
 	}catch(e){console.error('油管API加载失败',e)}
