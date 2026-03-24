@@ -103,21 +103,21 @@ function getValueByPath(obj, pathArray) {
 
 //分享站点抓取
 async function loadShareSite(){
-	
 	const siteMaps=[//各分享站点地图，框架是一样的
 		['https://www.yudou789.top/category/jiedian', //导航url
-		 'posts',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
+		 'posts',0,1, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
 		 /https:\/\/hh\.yudou226\.top\/[^\/]+\/[^\/]+\.txt/g	//订阅链接匹配正则
 		],
 		['https://www.mibei77.com', //导航url
-		 'article',0,2, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
+		 'article',0,1, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 1, "children", 0, "attribs", "href"], //子页面href相对路径
 		 /https:\/\/mm\.mibei77\.com\/[^\s]+\.txt/g
 		],
 		['https://www.freeclashnode.com', //clash-meta.github.io所嫖地址
-		 'a[href*="-free-subscribe-node.htm"]',0,1,
-		 ["attribs", "href"], //子页面href相对路径
+		 //'a[href*="-free-subscribe-node.htm"]',0,1,
+		 'div.row.item.py-3',0,1,
+		 ["children", 1,"children",1,"attribs", "href"], //子页面href相对路径
 		 /https:\/\/node\.freeclashnode\.com\/\S+?\.txt/g
 		],
 		['https://nodev2ray.com',
@@ -175,6 +175,7 @@ const { execSync } = require('child_process');
 
 async function loadGitCustom(){
 	//骚包分享者把资源打包了
+	try{
 	for(let c of (await axios.get('https://api.github.com/repos/zzzhhh1/2024-/commits')).data){
 		const f = (await axios.get(c.url)).data.files[0]
 		if(!f.filename.endsWith('.7z')) continue
@@ -193,7 +194,7 @@ async function loadGitCustom(){
 		});
 		break;
 	}
-	
+	catch(e){console.log(e)}
 	return ""
 }
 updateData()
