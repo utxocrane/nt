@@ -157,8 +157,15 @@ async function loadShareSite(){
 async function loadYoutubeSbj(playlistid,rgx,rgx2){
 	console.log('解析YT主播最新视频简介...')
 	try{
-	let ydtxt = (await axios.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId='+playlistid+'&maxResults=99&key='+process.env.YTKEY,{httpsAgent:socksAgent})).data.items[0].snippet.description
-	const matches = (ydtxt.match(rgx)) || [];
+	let matches=[]
+	for(let item of (await axios.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId='+playlistid+'&maxResults=99&key='+process.env.YTKEY,{httpsAgent:socksAgent})).data.items){
+		const ms = item.snippet.description.match(rgx)
+		if(!ms) continue
+		matches = ms
+		break
+	}
+	//let ydtxt = (await axios.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId='+playlistid+'&maxResults=99&key='+process.env.YTKEY,{httpsAgent:socksAgent})).data.items[0].snippet.description
+	//const matches = (ydtxt.match(rgx)) || [];
 	if(matches[0]){
 		let $2 = cheerio.load((await axios.get(matches[0],{httpsAgent:socksAgent})).data)
 		
@@ -193,7 +200,7 @@ async function loadGitCustom(){
 		  }
 		});
 		break;
-	}
+	}}
 	catch(e){console.log(e)}
 	return ""
 }
