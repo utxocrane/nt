@@ -1592,7 +1592,7 @@ vmess://eyJhZGQiOiI4Mi4xOTguMjQ2LjIxNCIsImFpZCI6MCwiaWQiOiJkMTNmYzJmNS0zZTA1LTQ3
 开始加载https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7
 vless://ac121f97-544b-47b3-bf91-eca9c45db548@178.18.147.163:15530?encryption=none&security=reality&sni=www.microsoft.com&fp=chrome&pbk=w8JMWRzOsYUuBeI0i_te745nBRlDocMOTgGMMZLioik&sid=aa45df0f&type=xhttp&path=%2Fgithub.com%2FAlvin9999-newpac%2Ffanqiang#VLESS-xhttp-Reality-Vision
 vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogInZtZXNzLWlwdjYiLA0KICAiYWRkIjogIjJhMTQ6NzU4NDpkMTE3OjoxNCIsDQogICJwb3J0IjogIjI3ODAyIiwNCiAgImlkIjogImI5ODg3ZWU5LTYwNmItNDY2NS1hNGVhLTc0NDNjYTA0OWE2OCIsDQogICJhaWQiOiAiMCIsDQogICJzY3kiOiAiYXV0byIsDQogICJuZXQiOiAid3MiLA0KICAidHlwZSI6ICJub25lIiwNCiAgImhvc3QiOiAiIiwNCiAgInBhdGgiOiAiL2dpdGh1Yi5jb20vQWx2aW45OTk5LW5ld3BhYy9mYW5xaWFuZyIsDQogICJ0bHMiOiAiIiwNCiAgInNuaSI6ICIiLA0KICAiYWxwbiI6ICIiLA0KICAiZnAiOiAiIg0KfQ==
-hysteria2://github.com%2FAlvin9999-newpac%2Ffanqiang@83.243.86.103:38563?sni=www.microsoft.com&insecure=1#hysteria2-warp
+hysteria2://github.com%2FAlvin9999-newpac%2Ffanqiang@83.243.86.103:12855?sni=www.microsoft.com&insecure=1#hysteria2-warp
 开始加载https://raw.githubusercontent.com/shaoyouvip/free/refs/heads/main/base64.txt
 vless://bf263367-bb63-4663-b4a1-34946107a72e@gr-1.illusion-proxy.ru:443?security=reality&type=tcp&sni=gr-1.illusion-proxy.ru&fp=chrome&flow=xtls-rprx-vision&sid=fe28038a&pbk=I-ltGSV73Fd08VfuP_XZ-mAAb2ZE3Ag4a_8ftaX0bz0#%F0%9F%87%A9%F0%9F%87%AADE_1%7C1.4MB%2Fs
 vless://595ae3f9-5a91-4eaa-82a3-28a221cf8f7f@138.124.32.188:30047?security=none&type=ws&path=%2F#%F0%9F%87%A8%F0%9F%87%ADCH_1%7C1008KB%2Fs
