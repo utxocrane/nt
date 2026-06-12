@@ -1297,7 +1297,7 @@ vless://2c53af1c-c440-38f0-94f1-8bc32a4274f8@138.68.150.88:443?encryption=none&f
 vless://c5945c28-ecab-4c5b-8681-f742b7c88cf5@2.26.134.124:443?encryption=none&security=none&type=ws&path=%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN%2FBegoo_VPN#%E8%8B%B1%E5%9B%BD
 vless://8faf6e38-0531-4d63-91f0-2aba5b9ff864@1.sdwan.realm-sync.com:5457?encryption=none&flow=xtls-rprx-vision&security=reality&sni=swcdn.apple.com&fp=chrome&pbk=8Ct9wBZLha-ePZMWbSau9ViKgbwlCgEsbGMjNnoVDzw&sid=9da3779ceafd&type=tcp&headerType=none#%E8%8B%B1%E5%9B%BD-
 开始加载https://www.xrayvip.com/free.txt
-vmess://eyJ2IjogIjIiLCAicHMiOiAiXHU4MjgyXHU3MGI5XHU2NWU1XHU2NzFmXHVmZjFhMjAyNi0wNi0xMiIsICJhZGQiOiAiODIuMTk4LjI0Ni4zNyIsICJwb3J0IjogIjE4MCIsICJpZCI6ICJkMTNmYzJmNS0zZTA1LTQ3OTUtODFlYi00NDE0M2EwOWU1NTIiLCAiYWlkIjogIjAiLCAic2N5IjogImF1dG8iLCAibmV0IjogInRjcCIsICJ0eXBlIjogIm5vbmUiLCAiaG9zdCI6ICIiLCAicGF0aCI6ICIiLCAidGxzIjogIiIsICJzbmkiOiAiIiwgImFscG4iOiAiIn0=
+ss://YWVzLTEyOC1nY206SlZyc0xMTjF0a044b1haTw==@chengbai02.ascwt179.com:13223#%E8%8A%82%E7%82%B9%E6%97%A5%E6%9C%9F%EF%BC%9A2026-06-13
 开始加载https://node.nodefree.me/2026/06/20260612.txt
 vless://7b241232-208d-4d36-857e-913f91b044f4@fr.noooo.win:443?flow=xtls-rprx-vision&security=tls#%F0%9F%87%AB%F0%9F%87%B7_FR_%E6%B3%95%E5%9B%BD
 vless://394086c4-d8a4-4298-9b62-f70fa711082d@47.86.55.200:19321#%F0%9F%87%AD%F0%9F%87%B0_HK_%E4%B8%AD%E5%9B%BD%E9%A6%99%E6%B8%AF
