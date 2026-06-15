@@ -998,7 +998,7 @@ trojan://4f4d1167-ef14-4304-9bce-0740472503ef@103.177.136.42:46424?security=tls&
 trojan://4f4d1167-ef14-4304-9bce-0740472503ef@103.177.136.45:41943?security=tls&sni=az.01.naiun.bilibili.com&insecure=1&allowInsecure=1&type=tcp&headerType=none#%E7%BE%8E%E5%9B%BD
 trojan://eeb6823c-b926-4ea2-866a-5542edd26e59@64.186.248.160:443?security=tls&sni=tjsp.hhxaf.cc.cd&fp=chrome&insecure=0&allowInsecure=0&ech=cloudflare-ech.com%2Bhttps%3A%2F%2Fdns.alidns.com%2Fdns-query&type=ws&host=tjsp.hhxaf.cc.cd&path=%2F#%E7%BE%8E%E5%9B%BD
 开始加载https://www.xrayvip.com/free.txt
-ss://YWVzLTEyOC1nY206SlZyc0xMTjF0a044b1haTw==@chengbai02.ascwt179.com:13223#%E8%8A%82%E7%82%B9%E6%97%A5%E6%9C%9F%EF%BC%9A2026-06-13
+ss://YWVzLTEyOC1nY206SlZyc0xMTjF0a044b1haTw==@chengbai02.ascwt179.com:13223#%E8%8A%82%E7%82%B9%E6%97%A5%E6%9C%9F%EF%BC%9A2026-06-16
 开始加载https://node.nodefree.me/2026/06/20260615.txt
 vless://7b241232-208d-4d36-857e-913f91b044f4@fr.noooo.win:443?flow=xtls-rprx-vision&security=tls#%F0%9F%87%AB%F0%9F%87%B7_FR_%E6%B3%95%E5%9B%BD
 vless://394086c4-d8a4-4298-9b62-f70fa711082d@47.86.55.200:19321#%F0%9F%87%AD%F0%9F%87%B0_HK_%E4%B8%AD%E5%9B%BD%E9%A6%99%E6%B8%AF
