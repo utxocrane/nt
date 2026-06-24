@@ -2034,7 +2034,7 @@ vless://@V2ConfigPro@192.0.63.61:2083?encryption=mlkem768x25519plus.native.0rtt.
 开始加载https://github.com/Alvin9999-newpac/fanqiang/wiki/v2ray%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7
 vless://4e9a2de3-4193-49a9-b7fb-b5fff8479904@[2001:bc8:32d7:302::10]:60277?encryption=none&security=reality&sni=www.lovelive-anime.jp&fp=chrome&pbk=o2mKhGNfc7h3XaxZgmmAWHnWs5FdwciNPoSFMOh2wng&sid=cd0bbb9f&type=xhttp&path=%2FYplI82oo#VLESS-xhttp-Reality-Vision
 vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogInZtZXNzLXdzLWlwdjYiLA0KICAiYWRkIjogIjIwMDE6YmM4OjMyZDc6MjI1OjozIiwNCiAgInBvcnQiOiAiNTUwMDkiLA0KICAiaWQiOiAiY2Q4MGQwYTQtYThlZi00NDkyLWI5NTYtZGE4MmE2Y2VjYWY5IiwNCiAgImFpZCI6ICIwIiwNCiAgInNjeSI6ICJhdXRvIiwNCiAgIm5ldCI6ICJ3cyIsDQogICJ0eXBlIjogIm5vbmUiLA0KICAiaG9zdCI6ICIiLA0KICAicGF0aCI6ICIvMHpOVzU2c0YiLA0KICAidGxzIjogIiIsDQogICJzbmkiOiAiIiwNCiAgImFscG4iOiAiIiwNCiAgImZwIjogIiINCn0=
-hysteria2://github.com%2FAlvin9999-newpac%2Ffanqiang@hy2.313186.xyz:18066?sni=hy2.313186.xyz&insecure=0#hysteria2-ipv4
+hysteria2://github.com%2FAlvin9999-newpac%2Ffanqiang@clash-ip1.934618.xyz:18271?sni=clash-ip1.934618.xyz&insecure=0#hysteria2-ipv4
 开始加载https://raw.githubusercontent.com/shaoyouvip/free/refs/heads/main/base64.txt
 hysteria://5.83.129.90:54177?alpn=h3&auth=dongtaiwang.com&auth_str=dongtaiwang.com&downmbps=1000&protocol=udp&insecure=1&peer=apple.com&udp=true&upmbps=500#%F0%9F%87%A9%F0%9F%87%AADE_1%7C2.1MB%2Fs
 vless://ac006062-f051-43c6-bd4c-f409285c8635@45.130.125.6:443?security=tls&type=xhttp&path=%2Fv2raylink&host=germany4.alibaba1405.org&packetEncoding=xudp&sni=germany4.alibaba1405.org&fp=chrome&mode=auto&encryption=none#%F0%9F%87%A9%F0%9F%87%AADE_2%7C3.2MB%2Fs
