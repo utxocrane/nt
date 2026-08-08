@@ -123,7 +123,7 @@ async function getAll(){
 }
 
 //getAll()
-getBocData()
+getIcbcData()
 
 
 /*
