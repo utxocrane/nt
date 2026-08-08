@@ -1,6 +1,7 @@
 const axios=require('axios')
 const fs=require('fs')
 const path=require('path')
+const https=require('https')
 
 const agent = new https.Agent({
   rejectUnauthorized: false,  // 工行得跳过证书验证
