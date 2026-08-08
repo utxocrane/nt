@@ -41,7 +41,7 @@ jobs:
         env:
           YTKEY: ${{ secrets.YTKEY}}
         run: |
-          node t.js || true
+          # node t.js || true
           node bknv_gh.js || true
       - name: Commit and push
         run: |
