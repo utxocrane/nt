@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+	成立时间=历史年化里取
+	IR优先取成立以来
+-->
+<html>
+<head>
+  <meta charset=UTF-8>
+  <title>Bank Invest Index</title>
+  <!--link rel=stylesheet type=text/css href=ui.css-->
+  <!--script src="vue.global.prod.min.js"></script-->
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.prod.min.js"></script>
+  <style>
+    td,th {
+      white-space: nowrap;
+    }
+    table {
+      width: 100%;
+    }
+	input{
+		width:10%;
+	}
+  </style>
+</head>
+<body>
+ <div id=gate>
+  <input type=checkbox id=showMyInv v-model=showMyInv><label for=showMyInv>始终在筛选中显示自选</label>
+  <table border=1><thead><tr><th>操作</th><th>代码</th><th>APP</th><th>IR</th><th>近1月</th><th>近3月</th><th>近6月</th><th>产品代码和名称</th><th>锁定期</th><th>风险</th><th>发行日</th><th>最新日</th><th>机构</th></tr></thead>
+	<tbody><tr v-for="(n,id) in myTracks"><td><button @click='delete myTracks[id];saveMyInvs()'>删除</button></td><td>{{id}}</td><div v-if="typeof n === 'object'"><td>{{n.bank}}</td><td>{{n.ir}}</td><td>{{n.irM1}}</td><td>{{n.irM3}}</td><td>{{n.irM6}}</td><td><a :href=n.url target=_blank>{{n.id+'】'+n.name}}</a></td><td>{{n.lockDays}}</td><td>{{n.risk}}</td><td>{{n.startDate}}</td><td>{{n.lastDate}}</td><td>{{n.manager}}</td></div></tr></tbody>
+  </table>
+  产品查询：<input v-model=subIdOrName placeholder='输入ID或名称的部分' /><br>
+  锁定天数≤<input v-model=maxLock />
+  近1月年化% ≥<input v-model=minM1 />
+  近3月年化% ≥<input v-model=minM3 />
+  近6月年化% ≥<input v-model=minM6 />
+  成立来年化% ≥<input v-model=minYE />
+  
+  <table border=1><thead><tr><th>关注</th><th>APP</th><th>IR</th><th>近1月</th><th>近3月</th><th>近6月</th><th>成立来</th><th>产品代码和名称</th><th>锁定期</th><th>风险</th><th>发行日</th><th>最新日</th><th>剩余额度</th></tr></thead>
+	<tbody><tr 
+		  v-for="(n, i) in invList" 
+		  :key="n.id"
+		  v-show="
+			(subIdOrName.length > 0 && 
+			 (n.id.toLowerCase().indexOf(subIdOrName.toLowerCase()) >= 0 || n.name.toLowerCase().indexOf(subIdOrName.toLowerCase()) >= 0)) ||
+			(subIdOrName === '' && 
+			 ((showMyInv && myTracks[n.id]) || 
+			  (n.lockDays <= parseInt(maxLock) && 
+				(n.irM1 || n.irM3 || n.irM6) &&
+			   (!n.irM1 || n.irM1 >= parseFloat(minM1||0)) && 
+			   (!n.irM3 || n.irM3 >= parseFloat(minM3||0)) && 
+			   (!n.irM6 || n.irM6 >= parseFloat(minM6||0)) && 
+			   (!n.irYE || n.irYE >= parseFloat(minYE||0))
+			   )))
+		  "
+		>
+		<td><button v-show='!myTracks[n.id]' @click='myTracks[n.id]=n;saveMyInvs()'>关注</button></td><td>{{n.bank}}</td><td>{{n.ir}}</td><td>{{n.irM1}}</td><td>{{n.irM3}}</td><td>{{n.irM6}}</td><td>{{n.irYE}}</td><td><a :href=n.url target=_blank>{{n.id+'】'+n.name}}</a></td><td>{{n.lockDays}}</td><td>{{n.risk}}</td><td>{{n.startDate}}</td><td>{{n.lastDate}}</td><td>{{n.restAmt}}</td></tr></tbody>
+  </table>
+ </div>
+ <script>
+	const urlPrefix={
+		'工行':'https://m.icbc.com.cn/mpage/finance/detail?productId=',
+		'中行':'https://ebsnew.boc.cn/bocphone/VueLocalCli4/bocFinanceDetail/index.html#/productDetail?productId='
+	}
+	let va = Vue.createApp({
+		data() {return{
+			invList:[],
+			maxLock:30,
+			minM1:3,
+			minM3:3,
+			minM6:3,
+			minYE:3,
+			showMyInv:false,
+			myTracks:{},
+			subIdOrName:''
+		}},
+		methods:{
+			getList:async function(){
+				const response = await fetch('bknv.json')
+				const data = await response.json()
+				
+				data.forEach(v=>{
+					v.url = urlPrefix[v.bank]+v.id
+					v.startDate = new Date(v.startDate).toLocaleDateString()
+					v.lastDate = new Date(v.lastDate).toLocaleDateString()
+				})
+				/*data.forEach(v=>{
+				try{
+					v.ir=  v.ir.toFixed(3)
+					v.irM1=v.irM1.toFixed(3)
+					v.irM3=v.irM3.toFixed(3)
+					v.irM6=v.irM6.toFixed(3)
+				}catch(e){}
+				})*/
+
+				this.invList = data.sort((a, b) => {
+				  const va = typeof a.irM1 === 'number' && isFinite(a.irM1) ? a.irM1 : -Infinity;
+				  const vb = typeof b.irM1 === 'number' && isFinite(b.irM1) ? b.irM1 : -Infinity;
+				  return vb - va;
+				});
+				//for(let v of this.invList)console.log(typeof v.irM1)
+			},
+			updateInv:function(){//刷新指向
+				this.invList.forEach(v=>{
+						//v.fav = this.myTracks[v.id] //?
+
+					if(this.myTracks[v.id]) this.myTracks[v.id] = v
+				})
+			},
+			
+			saveMyInvs:function(){
+				//let oldCnt=0
+				//for(let k in this.myTracks) ++oldCnt
+				let arr = []
+				for(let id in this.myTracks) arr.push(id)
+				localStorage.myInvs = JSON.stringify(arr)
+			},
+			loadMyInvs:function(){
+				try{
+					JSON.parse(localStorage.myInvs).forEach(v=>this.myTracks[v]=1);
+					this.updateInv()
+				}catch(e){}
+			}
+		},
+		async mounted() {
+			await this.getList()
+			this.loadMyInvs()
+			this.updateInv()
+		}
+	})
+	va.mount('#gate')
+ </script>
+</body>
