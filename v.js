@@ -58,7 +58,7 @@ async function updateData() {
 			allLogs += txt1 + '\n'
 			allTxt += txt1 + '\n'
 
-			console.log(u,'读取后长度', allTxt.length);
+			//console.log(u,'读取后长度', allTxt.length);
 		}
 		catch (error) {console.error(u,'读取失败:', error.message);}
 	}
@@ -82,7 +82,7 @@ async function updateData() {
 
 	console.log('总长度',allTxt.length,'总数', allcnt,'去重后',ucnt)
 	//fs.writeFileSync('vt', allTxt) //订阅明文
-	fs.writeFileSync('pub/v', Buffer.from(allTxt).toString('base64')) //去重后的订阅base64
+	fs.writeFileSync('pub/v.txt', Buffer.from(allTxt).toString('base64')) //去重后的订阅base64
 }
 //
 async function getfpcn(){
