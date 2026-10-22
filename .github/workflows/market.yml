@@ -33,6 +33,6 @@ jobs:
         env:
           GITEETOKEN: ${{ secrets.GITEETOKEN}}
           GITEEURL: ${{ secrets.GITEEURL}}
-          GITEEURLBKNV: ${{ secrets.GITEEURLBKNV}}
+          KEY12: ${{ secrets.KEY12}}
         run: |
           node market
