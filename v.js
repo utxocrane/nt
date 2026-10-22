@@ -26,8 +26,6 @@ function extractUrlsSmart(html) {
 }
 
 async function updateData() {
-	//await getfpcn();
-	//console.log(await getUploadsPlaylistId('https://www.youtube.com/@blue-Youtube/videos'))
 	let allTxt = '',allLogs=''
 	/////////////////普通base64订阅链接或包含节点URL的纯文本，按是否包含:判断是否需要base64解码
 	const suburls=[]
@@ -46,8 +44,6 @@ async function updateData() {
 	])
 	
 	suburls.push(...(await loadShareSite())) //分享站点
-	//console.log('处理zzzhhh1项目7z')
-	//allTxt += await loadGitCustom() + '\n' //7z打包的
 	
 	for(const u of suburls){
 		try{
@@ -100,7 +96,7 @@ async function getfpcn(){
 	}catch(e){
 		console.log('fineproxy.org error',e.message)
 	}
-	//console.log(sret)
+
 	return sret
 }
 
