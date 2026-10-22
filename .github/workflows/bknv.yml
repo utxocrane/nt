@@ -1,5 +1,4 @@
 # 理财数据更新
-
 name: bknvdeploy
 
 # Controls when the workflow will run
@@ -40,7 +39,7 @@ jobs:
           GITEEURL: ${{ secrets.GITEEURL}}
           GITEEURLBKNV: ${{ secrets.GITEEURLBKNV}}
         run: |
-          # node bknv
+          node bknv
       - name: 推到远程
         run: |
           cd "$RUNNER_TEMP"
