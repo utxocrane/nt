@@ -54,6 +54,7 @@ jobs:
           git checkout origin/main -- .
           
           cp "$GITHUB_WORKSPACE/pub/bknv.json" .
+          cp "$GITHUB_WORKSPACE/pub/index.html" .
           
           git add -A
           git commit -m "action deploy.."
