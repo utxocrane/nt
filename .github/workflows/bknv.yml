@@ -29,7 +29,7 @@ jobs:
           node-version: '25'
       - name: Install dependencies
         run: |
-          npm install axios cheerio
+          npm install axios
       - name: 运行脚本
         env:
           BOCLSTURL: ${{ secrets.BOCLSTURL}}
@@ -39,7 +39,6 @@ jobs:
           GITEETOKEN: ${{ secrets.GITEETOKEN}}
           GITEEURL: ${{ secrets.GITEEURL}}
           GITEEURLBKNV: ${{ secrets.GITEEURLBKNV}}
-          TGTREPO: ${{ secrets.GHP}}
         run: |
           # node bknv
       - name: 推到远程
@@ -47,12 +46,12 @@ jobs:
           cd "$RUNNER_TEMP"
           mkdir -p pub-repo && cd pub-repo
           
-          git config --global init.defaultBranch main
+          git config --local init.defaultBranch main
           git init
           
           git config user.name  "github-actions"
           git config user.email "actions@github.com"
-          git remote add origin "$TGTREPO"
+          git remote add origin "${{secrets.PAGEDEPURL}}"
           git fetch origin main
           git checkout -B main origin/main
           
