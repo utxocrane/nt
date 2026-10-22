@@ -46,16 +46,19 @@ jobs:
         run: |
           cd "$RUNNER_TEMP"
           mkdir -p pub-repo && cd pub-repo
+          
+          git config --global init.defaultBranch main
           git init
+          
           git config user.name  "github-actions"
           git config user.email "actions@github.com"
-          git remote add origin TGTREPO
+          git remote add origin "$TGTREPO"
           git fetch origin main
-          git checkout origin/main -- .
+          git checkout -B main origin/main
           
           cp "$GITHUB_WORKSPACE/pub/bknv.json" .
           cp "$GITHUB_WORKSPACE/pub/index.html" .
           
           git add -A
-          git commit -m "action deploy.."
-          git push -f
+          git commit -m "action deploy.." --allow-empty
+          git push -f origin main
