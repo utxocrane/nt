@@ -5,9 +5,10 @@ const https=require('node:https')
 const {updateGiteeFile,createRetryAxios}=require('./lib/common')
 
 const dataPath = path.join(__dirname, 'pub/bknv.json')
-	,orgDataPath = path.join(__dirname, 'pub/orgdtl.json')//const a=JSON.parse(require('node:fs').readFileSync('orgdtl.json','utf-8'))//独立分析
+	,orgDataPath = path.join(__dirname, 'pub/orgdtl.json')
+//const a=JSON.parse(require('node:fs').readFileSync('orgdtl.json','utf-8'))//独立分析
 
-if(process.env.RUNLOCAL){//本地运行时，启动http服务
+if(process.env.RUNLOCAL){//本地运行才启动http服务
 	const express = require('express')
 	const app = express()
 	app.use('/', express.static(path.join(__dirname, 'pub')))
@@ -15,7 +16,7 @@ if(process.env.RUNLOCAL){//本地运行时，启动http服务
 }
 
 const agent = new https.Agent({
-  rejectUnauthorized: false,  // 工行得跳过证书验证
+  rejectUnauthorized: false,  // 工行跳过证书验证
   secureOptions: require('constants').SSL_OP_LEGACY_SERVER_CONNECT
 });
 

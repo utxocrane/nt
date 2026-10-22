@@ -1,0 +1,60 @@
+# 理财数据更新
+
+name: bknvdeploy
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: '0 1 * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+      - name: Install dependencies
+        run: |
+          npm install axios cheerio
+      - name: 运行脚本
+        env:
+          BOCLSTURL: ${{ secrets.BOCLSTURL}}
+          BOCDTLURL: ${{ secrets.BOCDTLURL}}
+          ICBCLSTURL: ${{ secrets.ICBCLSTURL}}
+          ICBCDTLURL: ${{ secrets.ICBCDTLURL}}
+          GITEETOKEN: ${{ secrets.GITEETOKEN}}
+          GITEEURL: ${{ secrets.GITEEURL}}
+          GITEEURLBKNV: ${{ secrets.GITEEURLBKNV}}
+          TGTREPO: ${{ secrets.GHP}}
+        run: |
+          node bknv
+      - name: 推到远程
+        run: |
+          cd "$RUNNER_TEMP"
+          mkdir -p pub-repo && cd pub-repo
+          git init
+          git config user.name  "github-actions"
+          git config user.email "actions@github.com"
+          git remote add origin TGTREPO
+          git fetch origin main
+          git checkout origin/main -- .
+          
+          cp "$GITHUB_WORKSPACE/pub/bknv.json" .
+          
+          git add -A
+          git commit -m "action deploy.."
+          git push -f
