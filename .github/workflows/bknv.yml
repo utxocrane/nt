@@ -46,7 +46,7 @@ jobs:
           cd "$RUNNER_TEMP"
           mkdir -p pub-repo && cd pub-repo
           
-          git config --local init.defaultBranch main
+          git config --global init.defaultBranch main
           git init
           
           git config user.name  "github-actions"
