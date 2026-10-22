@@ -41,7 +41,7 @@ jobs:
           GITEEURLBKNV: ${{ secrets.GITEEURLBKNV}}
           TGTREPO: ${{ secrets.GHP}}
         run: |
-          node bknv
+          # node bknv
       - name: 推到远程
         run: |
           cd "$RUNNER_TEMP"
@@ -56,8 +56,7 @@ jobs:
           git fetch origin main
           git checkout -B main origin/main
           
-          cp "$GITHUB_WORKSPACE/pub/bknv.json" .
-          cp "$GITHUB_WORKSPACE/pub/index.html" .
+          cp -r "$GITHUB_WORKSPACE/pub/." .
           
           git add -A
           git commit -m "action deploy.." --allow-empty
