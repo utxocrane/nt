@@ -8,8 +8,10 @@ async function getOKX(){
 	let res = await axios.get('https://www.okx.com/api/v5/market/tickers?instType=SPOT')
 	console.log('OKX返回数据',res)
 	res.data.data.forEach(v=>{
-		if(careTickers[v.instId])
+		if(careTickers[v.instId]){
 			saveList.push([v.instId,v.last,v.ts])
+			console.log('匹配数据',v.instId)
+		}
 	})
 }
 
