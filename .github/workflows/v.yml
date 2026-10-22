@@ -1,0 +1,64 @@
+# This is a basic workflow to help you get started with Actions
+
+name: vurldeploy
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  #push:
+  #  branches: [ "main" ]
+  #pull_request:
+  #  branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '25'
+      - name: Install dependencies
+        run: |
+          npm install axios cheerio
+      - name: 运行node脚本
+        env:
+          YTKEY: ${{ secrets.YTKEY}}
+          GITEETOKEN: ${{ secrets.GITEETOKEN}}
+          GITEEURL: ${{ secrets.GITEEURL}}
+          GITEEURLBKNV: ${{ secrets.GITEEURLBKNV}}
+        run: |
+          node v
+      - name: Commit and push
+        run: |
+          cd "$RUNNER_TEMP"
+          mkdir -p pub-repo && cd pub-repo
+          
+          git config --global init.defaultBranch main
+          git init
+          
+          git config user.name  "github-actions"
+          git config user.email "actions@github.com"
+          git remote add origin "${{secrets.PAGEDEPURL}}"
+          git fetch origin main
+          git checkout -B main origin/main
+          
+          cp -r "$GITHUB_WORKSPACE/pub/." .
+          
+          git add -A
+          git commit -m "action deploy.." --allow-empty
+          git push -f origin main

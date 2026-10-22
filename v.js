@@ -1,5 +1,5 @@
 const axios = require('axios'),cheerio = require('cheerio')
-const fs = require('fs'),path=require('path')
+const fs = require('node:fs'),path=require('node:path')
 const v2uri = require('./lib/v2uri')
 const socksAgent = process.env.PROXY ? (new (require('socks-proxy-agent').SocksProxyAgent)(process.env.proxy)) : undefined //代理
 
@@ -86,19 +86,8 @@ async function updateData() {
 
 	console.log('总长度',allTxt.length,'总数', allcnt,'去重后',ucnt)
 	//fs.writeFileSync('vt', allTxt) //订阅明文
-	fs.writeFileSync('v', Buffer.from(allTxt).toString('base64')) //去重后的订阅
-	fs.writeFileSync('l', allLogs) //日志
-
-	////////////////////////////////金融数据
-	let allTickers=[]
-	
-	for(let tx of (await axios.get('https://www.okx.com/api/v5/market/tickers?instType=SPOT',{httpsAgent:socksAgent})).data.data)
-		if(tx.instId.endsWith('USD') || tx.instId.endsWith('USDT')) allTickers.push(tx)
-	
-	fs.writeFileSync('m',JSON.stringify(allTickers))
-	console.log('OKX USD报价',allTickers.length)
+	fs.writeFileSync('pub/v', Buffer.from(allTxt).toString('base64')) //去重后的订阅base64
 }
-//socks://Og@112.28.149.152:8443#US%E7%BE%8E%E5%9B%BD%28mibei77.com%20%E7%B1%B3%E8%B4%9D%E8%8A%82%E7%82%B9%E5%88%86%E4%BA%AB%29
 //
 async function getfpcn(){
 	let sret=''
@@ -123,7 +112,7 @@ function getValueByPath(obj, pathArray) {
 
 //分享站点抓取
 async function loadShareSite(){
-	const siteMaps=[//各分享站点地图，框架是一样的
+	const siteMaps=[//各分享站点地图
 		['https://www.yudou789.top/category/jiedian', //导航url
 		 'posts',0,1, //元素选择器,开始索引和加载个数，用于遍历,一般可取首个（最新）；
 		 ["children", 1, "children", 0, "children", 0, "attribs", "href"], //子页面href相对路径
@@ -228,32 +217,6 @@ async function loadYoutubeSbj(playlistid,rgx,rgx2){
 	return []
 }
 
-const { execSync } = require('child_process');
-
-async function loadGitCustom(){
-	//骚包分享者把资源打包了
-	try{
-	for(let c of (await axios.get('https://api.github.com/repos/zzzhhh1/2024-/commits')).data){
-		const f = (await axios.get(c.url)).data.files[0]
-		if(!f.filename.endsWith('.7z')) continue
-
-		fs.writeFileSync('temp/t.7z',(await axios.get(f.raw_url, {httpsAgent:socksAgent,responseType: 'arraybuffer' })).data)
-		execSync('7z x temp/t.7z -otemp/out -y', { stdio: 'inherit' });
-		fs.readdirSync('temp/out').forEach(file => {
-		  const filePath = path.join('temp/out', file);
-		  const stat = fs.statSync(filePath);
-
-		  if (stat.isFile() && path.extname(file) === '.txt') {
-			const content = fs.readFileSync(filePath, 'utf-8'); // 读取文本内容
-			if(content.indexOf('ss://')>=0)
-				return content.trim()
-		  }
-		});
-		break;
-	}}
-	catch(e){console.log(e)}
-	return ""
-}
 updateData()
 
 /* 
